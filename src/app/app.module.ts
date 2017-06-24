@@ -4,8 +4,7 @@ import { FormsModule }          from '@angular/forms';
 import { HttpModule }           from '@angular/http';
 import { Store, StoreModule }   from '@ngrx/store';
 import { AppRoutingModule }     from './app-routing.module';
-
-// Imports for loading & configuring the in-memory web api
+import { EffectsModule }        from '@ngrx/effects';
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 
@@ -14,24 +13,31 @@ import { DashboardComponent }   from './components/dashboard/dashboard.component
 import { HeroesComponent }      from './components/heroes/heroes.component';
 import { HeroDetailComponent }  from './components/heroes/hero-detail.component';
 import { HeroService }          from './services/hero.service';
-import { HeroSearchComponent }  from './components/heroes/hero-search.component';
+import { HeroSearchComponent } from './components/heroes/hero-search.component';
+
+import reducer                  from './reducers';
+import { HeroActions }          from './actions';
+import { HeroEffects }          from './effects/hero.effects';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
-    AppRoutingModule
-  ],
-  declarations: [
-    AppComponent,
-    DashboardComponent,
-    HeroDetailComponent,
-    HeroesComponent,
-    HeroSearchComponent
-  ],
-  providers: [ HeroService ],
-  bootstrap: [ AppComponent ]
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        InMemoryWebApiModule.forRoot(InMemoryDataService),
+        AppRoutingModule,
+        //StoreModule.provideStore(reducer),
+        //EffectsModule.run(HeroEffects)
+    ],
+    declarations: [
+        AppComponent,
+        DashboardComponent,
+        HeroDetailComponent,
+        HeroesComponent,
+        HeroSearchComponent
+    ],
+    //providers: [HeroActions, HeroService],
+    providers: [HeroService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
