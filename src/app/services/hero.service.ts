@@ -17,20 +17,11 @@ export class HeroService {
   }
 
   getHero(id: number): Observable<Hero> {
-    const url = `${this.heroesUrl}/${id}`;
-    return this.http.get(url).map(response => response.json().data as Hero);
-  }
-
-  delete(id: number): Promise<void> {
-    const url = `${this.heroesUrl}/${id}`;
-    return this.http.delete(url, {headers: this.headers})
-      .toPromise()
-      .then(() => null)
-      .catch(this.handleError);
+      return this.http.get(`${this.heroesUrl}/${id}`).map(response => response.json().data as Hero);
   }
 
   deleteHero(hero) {
-      return this.http.delete('/api/heroes/' + hero.id).map(res => hero);
+      return this.http.delete(`${this.heroesUrl}/${hero.id}`).map(res => hero);
   }
 
   create(name: string): Promise<Hero> {
@@ -41,13 +32,22 @@ export class HeroService {
       .catch(this.handleError);
   }
 
-  update(hero: Hero): Promise<Hero> {
-    const url = `${this.heroesUrl}/${hero.id}`;
-    return this.http
-      .put(url, JSON.stringify(hero), {headers: this.headers})
-      .toPromise()
-      .then(() => hero)
-      .catch(this.handleError);
+  //update(hero: Hero): Promise<Hero> {
+  //  const url = `${this.heroesUrl}/${hero.id}`;
+  //  return this.http
+  //    .put(url, JSON.stringify(hero), {headers: this.headers})
+  //    .toPromise()
+  //    .then(() => hero)
+  //    .catch(this.handleError);
+  //}
+  saveHero(hero) {
+      if (hero.id === 0) {
+          return this.http.post(`${this.heroesUrl}`, hero)
+              .map(res => res.json());
+      } else {
+          return this.http.put(`${this.heroesUrl}/${hero.id}`, hero)
+              .map(res => res.json());
+      }
   }
 
   private handleError(error: any): Promise<any> {
