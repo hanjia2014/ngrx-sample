@@ -1,9 +1,8 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
-
-import 'rxjs/add/operator/toPromise';
-
-import { Hero } from '../models/hero';
+import { Observable }    from 'rxjs/Observable';
+import                   'rxjs/add/operator/toPromise';
+import { Hero }          from '../models/hero';
 
 @Injectable()
 export class HeroService {
@@ -13,20 +12,13 @@ export class HeroService {
 
   constructor(private http: Http) { }
 
-  getHeroes(): Promise<Hero[]> {
-    return this.http.get(this.heroesUrl)
-               .toPromise()
-               .then(response => response.json().data as Hero[])
-               .catch(this.handleError);
+  getHeroes(): Observable<Hero[]> {
+      return this.http.get(this.heroesUrl).map(res => res.json().data as Hero[]);
   }
 
-
-  getHero(id: number): Promise<Hero> {
+  getHero(id: number): Observable<Hero> {
     const url = `${this.heroesUrl}/${id}`;
-    return this.http.get(url)
-      .toPromise()
-      .then(response => response.json().data as Hero)
-      .catch(this.handleError);
+    return this.http.get(url).map(response => response.json().data as Hero);
   }
 
   delete(id: number): Promise<void> {
@@ -35,6 +27,10 @@ export class HeroService {
       .toPromise()
       .then(() => null)
       .catch(this.handleError);
+  }
+
+  deleteHero(hero) {
+      return this.http.delete('/api/heroes/' + hero.id).map(res => hero);
   }
 
   create(name: string): Promise<Hero> {
