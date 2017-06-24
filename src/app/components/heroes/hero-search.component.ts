@@ -12,8 +12,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
-import { HeroSearchService } from './services/hero-search.service';
-import { Hero } from './models/hero';
+import { HeroSearchService }    from '../../services/hero-search.service';
+import { Hero }                 from '../../models/hero';
 
 @Component({
   selector: 'hero-search',
@@ -27,7 +27,28 @@ import { Hero } from './models/hero';
                 </div>
               </div>
             </div>`,
-  styleUrls: [ './app/hero-search.component.css' ],
+  styles: [`
+            .search-result{
+              border-bottom: 1px solid gray;
+              border-left: 1px solid gray;
+              border-right: 1px solid gray;
+              width:195px;
+              height: 16px;
+              padding: 5px;
+              background-color: white;
+              cursor: pointer;
+            }
+
+            .search-result:hover {
+              color: #eee;
+              background-color: #607D8B;
+            }
+
+            #search-box{
+              width: 200px;
+              height: 20px;
+            }
+            ` ],
   providers: [HeroSearchService]
 })
 export class HeroSearchComponent implements OnInit {
