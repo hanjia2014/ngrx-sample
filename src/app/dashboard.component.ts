@@ -5,7 +5,15 @@ import { HeroService } from './services/hero.service';
 
 @Component({
   selector: 'my-dashboard',
-  templateUrl: './app/dashboard.component.html',
+  template: `<h3>Top Heroes</h3>
+            <div class="grid grid-pad">
+              <a *ngFor="let hero of heroes"  [routerLink]="['/detail', hero.id]"  class="col-1-4">
+                <div class="module hero">
+                  <h4>{{hero.name}}</h4>
+                </div>
+              </a>
+            </div>
+            <hero-search></hero-search>`,
   styleUrls: [ './app/dashboard.component.css' ]
 })
 export class DashboardComponent implements OnInit {

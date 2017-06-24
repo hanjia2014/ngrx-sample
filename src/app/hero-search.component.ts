@@ -17,7 +17,16 @@ import { Hero } from './models/hero';
 
 @Component({
   selector: 'hero-search',
-  templateUrl: './app/hero-search.component.html',
+  template: `<div id="search-component">
+              <h4>Hero Search</h4>
+              <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+              <div>
+                <div *ngFor="let hero of heroes | async"
+                     (click)="gotoDetail(hero)" class="search-result" >
+                  {{hero.name}}
+                </div>
+              </div>
+            </div>`,
   styleUrls: [ './app/hero-search.component.css' ],
   providers: [HeroSearchService]
 })
