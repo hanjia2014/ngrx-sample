@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
+    "inlineSources": true,
+    "inlineSourceMap": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
     "noImplicitAny": false,
     "outDir": "built/",
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es2017",
     "typeRoots": [ "./typings" ]
   },
   "exclude": [
