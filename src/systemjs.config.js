@@ -32,7 +32,7 @@
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
             '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
             '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.js',
-
+            '@ngrx': 'npm:@ngrx',
             // other libraries
             'rxjs': 'npm:rxjs',
             'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
@@ -51,6 +51,26 @@
             'angular2-in-memory-web-api': {
                 main: './index.js',
                 defaultExtension: 'js'
+            },
+            '@ngrx/core': {
+                main: 'bundles/core.umd.js',
+                format: 'cjs'
+            },
+            '@ngrx/effects': {
+                main: 'bundles/effects.umd.js',
+                format: 'cjs'
+            },
+            '@ngrx/store': {
+                main: 'bundles/store.umd.js',
+                format: 'cjs'
+            },
+            '@ngrx/store-devtools': {
+                main: 'bundles/store-devtools.umd.js',
+                format: 'cjs'
+            },
+            '@ngrx/store-log-monitor': {
+                main: 'bundles/store-log-monitor.umd.js',
+                format: 'cjs'
             },
 
             "ts": {

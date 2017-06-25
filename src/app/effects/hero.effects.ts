@@ -2,7 +2,7 @@
 import { Effect, Actions } from '@ngrx/effects';
 
 import { AppState } from '../reducers';
-import { HeroActions } from '../actions';
+import { HeroActions } from '../actions/hero.action';
 import { HeroService } from '../services/hero.service';
 
 @Injectable()

@@ -8,7 +8,7 @@ import heroReducer, * as fromHero from './hero.reducer';
 export interface AppState {
     heroes: fromHeroList.HeroListState;
     hero: fromHero.HeroState;
-}
+};
 
 export default compose(combineReducers)({
     heroes: heroListReducer,

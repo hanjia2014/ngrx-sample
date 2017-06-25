@@ -13,10 +13,10 @@ import { DashboardComponent }   from './components/dashboard/dashboard.component
 import { HeroesComponent }      from './components/heroes/heroes.component';
 import { HeroDetailComponent }  from './components/heroes/hero-detail.component';
 import { HeroService }          from './services/hero.service';
-import { HeroSearchComponent } from './components/heroes/hero-search.component';
+import { HeroSearchComponent }  from './components/heroes/hero-search.component';
 
-import reducer                  from './reducers';
-import { HeroActions }          from './actions';
+import reducer                  from './reducers/index';
+import { HeroActions }          from './actions/hero.action';
 import { HeroEffects }          from './effects/hero.effects';
 
 @NgModule({
@@ -26,8 +26,8 @@ import { HeroEffects }          from './effects/hero.effects';
         HttpModule,
         InMemoryWebApiModule.forRoot(InMemoryDataService),
         AppRoutingModule,
-        //StoreModule.provideStore(reducer),
-        //EffectsModule.run(HeroEffects)
+        StoreModule.provideStore(reducer),
+        EffectsModule.run(HeroEffects)
     ],
     declarations: [
         AppComponent,
@@ -36,8 +36,7 @@ import { HeroEffects }          from './effects/hero.effects';
         HeroesComponent,
         HeroSearchComponent
     ],
-    //providers: [HeroActions, HeroService],
-    providers: [HeroService],
+    providers: [HeroActions, HeroService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

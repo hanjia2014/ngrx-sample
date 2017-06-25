@@ -1,6 +1,6 @@
 ﻿import { Action } from '@ngrx/store';
 import { Hero } from '../models';
-import { HeroActions } from '../actions';
+import { HeroActions } from '../actions/hero.action';
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 
@@ -13,7 +13,13 @@ export default function (state = initialState, action: Action): HeroListState {
             return action.payload;
         }
         case HeroActions.ADD_HERO_SUCCESS: {
-            let index = _.findIndex(state, { id: action.payload.id });
+            let index = 0;
+            for (var i = 0; i < state.length; i++) {
+                var item = state[i];
+                if (item.id == action.payload.id) {
+                    index = i;
+                }
+            }
             if (index >= 0) {
                 return [
                     ...state.slice(0, index),

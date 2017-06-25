@@ -1,6 +1,6 @@
 ﻿import { Action } from '@ngrx/store';
 import { Hero } from '../models';
-import { HeroActions } from '../actions';
+import { HeroActions } from '../actions/hero.action';
 
 export type HeroState = Hero;
 const initialState: HeroState = {
