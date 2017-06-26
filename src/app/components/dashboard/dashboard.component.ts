@@ -1,12 +1,16 @@
+import { Store }                from '@ngrx/store';
 import { Component, OnInit }    from '@angular/core';
 import { Hero }                 from '../../models/hero';
 import { HeroService }          from '../../services/hero.service';
+import { Observable }           from 'rxjs/Observable';
+import { AppState }             from '../../reducers';
+import { HeroActions }          from '../../actions/hero.action';
 
 @Component({
   selector: 'my-dashboard',
   template: `<h3>Top Heroes</h3>
             <div class="grid grid-pad">
-              <a *ngFor="let hero of heroes"  [routerLink]="['/detail', hero.id]"  class="col-1-4">
+              <a *ngFor="let hero of (heroes | async)"  [routerLink]="['/detail', hero.id]"  class="col-1-4">
                 <div class="module hero">
                   <h4>{{hero.name}}</h4>
                 </div>
@@ -77,12 +81,10 @@ import { HeroService }          from '../../services/hero.service';
             }
             ` ]
 })
-export class DashboardComponent implements OnInit {
-  heroes: Hero[] = [];
+export class DashboardComponent {
+    heroes: Observable<any>;
 
-  constructor(private heroService: HeroService) { }
-
-  ngOnInit(): void {
-    this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes.slice(1, 5));
+  constructor(private store: Store<AppState>, private heroActions: HeroActions) {
+      this.heroes = store.select('heroes');
   }
 }
