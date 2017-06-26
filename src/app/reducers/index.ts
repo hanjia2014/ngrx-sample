@@ -11,6 +11,6 @@ export interface AppState {
 };
 
 export default compose(combineReducers)({
-    heroes: heroListReducer,
+    heroList: heroListReducer,
     hero: heroReducer
 });

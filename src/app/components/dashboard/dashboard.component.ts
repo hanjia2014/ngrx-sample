@@ -85,6 +85,6 @@ export class DashboardComponent {
     heroes: Observable<any>;
 
   constructor(private store: Store<AppState>, private heroActions: HeroActions) {
-      this.heroes = store.select('heroes');
+      this.heroes = store.select('heroList');
   }
 }
