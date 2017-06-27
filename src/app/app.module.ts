@@ -14,6 +14,7 @@ import { HeroesComponent }      from './components/heroes/heroes.component';
 import { HeroDetailComponent }  from './components/heroes/hero-detail.component';
 import { HeroService }          from './services/hero.service';
 import { HeroSearchComponent }  from './components/heroes/hero-search.component';
+import { HeroForm }             from './components/heroes/hero-form.component';
 
 import reducer                  from './reducers/index';
 import { HeroActions }          from './actions/hero.action';
@@ -34,7 +35,8 @@ import { HeroEffects }          from './effects/hero.effects';
         DashboardComponent,
         HeroDetailComponent,
         HeroesComponent,
-        HeroSearchComponent
+        HeroSearchComponent,
+        HeroForm
     ],
     providers: [HeroActions, HeroService],
     bootstrap: [AppComponent]
