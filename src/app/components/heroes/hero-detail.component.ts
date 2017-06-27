@@ -2,9 +2,14 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
-
 import { Hero }        from '../../models/hero';
 import { HeroService } from '../../services/hero.service';
+
+import { AppState } from '../../reducers';
+import { HeroActions } from '../../actions/hero.action';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'hero-detail',
@@ -57,6 +62,8 @@ export class HeroDetailComponent implements OnInit {
   constructor(
     private heroService: HeroService,
     private route: ActivatedRoute,
+    private store: Store<AppState>,
+    private heroActions: HeroActions,
     private location: Location
   ) {}
 
