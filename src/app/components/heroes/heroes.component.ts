@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Router }            from '@angular/router';
+import { Component, OnInit }    from '@angular/core';
+import { Router }               from '@angular/router';
+import { Hero }                 from '../../models/hero';
+import { HeroService }          from '../../services/hero.service';
 
-import { Hero }                from '../../models/hero';
-import { HeroService }         from '../../services/hero.service';
+import { AppState }             from '../../reducers';
+import { HeroActions }          from '../../actions/hero.action';
+import { Observable }           from 'rxjs/Observable';
+import { Store }                from '@ngrx/store';
 
 @Component({
-  selector: 'my-heroes',
-  template: `<h2>My Heroes</h2>
+    selector: 'my-heroes',
+    template: `<h2>My Heroes</h2>
             <div>
               <label>Hero name:</label> <input #heroName />
               <button (click)="add(heroName.value); heroName.value=''">
@@ -28,7 +32,7 @@ import { HeroService }         from '../../services/hero.service';
               </h2>
               <button (click)="gotoDetail()">View Details</button>
             </div>`,
-  styles: [`
+    styles: [`
             .selected {
                 background-color: #CFD8DC !important;
                 color: white;
@@ -106,47 +110,49 @@ import { HeroService }         from '../../services/hero.service';
                 }` ]
 })
 export class HeroesComponent implements OnInit {
-  heroes: Hero[];
-  selectedHero: Hero;
+    heroes: Hero[];
+    selectedHero: Hero;
 
-  constructor(
-    private heroService: HeroService,
-    private router: Router) { }
+    constructor(
+        private store: Store<AppState>,
+        private heroActions: HeroActions,
+        private heroService: HeroService,
+        private router: Router) { }
 
-  getHeroes(): void {
-    this.heroService
-        .getHeroes()
-        .subscribe(heroes => this.heroes = heroes);
-  }
+    getHeroes(): void {
+        this.heroService
+            .getHeroes()
+            .subscribe(heroes => this.heroes = heroes);
+    }
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.heroService.create(name)
-      .then(hero => {
-        this.heroes.push(hero);
-        this.selectedHero = null;
-      });
-  }
+    add(name: string): void {
+        name = name.trim();
+        if (!name) { return; }
+        this.heroService.create(name)
+            .then(hero => {
+                this.heroes.push(hero);
+                this.selectedHero = null;
+            });
+    }
 
-  delete(hero: Hero): void {
-    this.heroService
-        .deleteHero(hero)
-        .subscribe(() => {
-          this.heroes = this.heroes.filter(h => h !== hero);
-          if (this.selectedHero === hero) { this.selectedHero = null; }
-        });
-  }
+    delete(hero: Hero): void {
+        this.heroService
+            .deleteHero(hero)
+            .subscribe(() => {
+                this.heroes = this.heroes.filter(h => h !== hero);
+                if (this.selectedHero === hero) { this.selectedHero = null; }
+            });
+    }
 
-  ngOnInit(): void {
-    this.getHeroes();
-  }
+    ngOnInit(): void {
+        this.getHeroes();
+    }
 
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
-  }
+    onSelect(hero: Hero): void {
+        this.selectedHero = hero;
+    }
 
-  gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedHero.id]);
-  }
+    gotoDetail(): void {
+        this.router.navigate(['/detail', this.selectedHero.id]);
+    }
 }
