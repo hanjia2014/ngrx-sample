@@ -18,7 +18,7 @@ import { Store }                from '@ngrx/store';
               </button>
             </div>
             <ul class="heroes">
-              <li *ngFor="let hero of heroes" (click)="onSelect(hero)"
+              <li *ngFor="let hero of (heroes | async)" (click)="onSelect(hero)"
                   [class.selected]="hero === selectedHero">
                 <span class="badge">{{hero.id}}</span>
                 <span>{{hero.name}}</span>
@@ -109,43 +109,36 @@ import { Store }                from '@ngrx/store';
                     color: white;
                 }` ]
 })
-export class HeroesComponent implements OnInit {
-    heroes: Hero[];
+export class HeroesComponent{
+    heroes: Observable<any>;
     selectedHero: Hero;
 
     constructor(
         private store: Store<AppState>,
         private heroActions: HeroActions,
         private heroService: HeroService,
-        private router: Router) { }
+        private router: Router) {
 
-    getHeroes(): void {
-        this.heroService
-            .getHeroes()
-            .subscribe(heroes => this.heroes = heroes);
+        this.heroes = store.select('heroList');
     }
 
     add(name: string): void {
-        name = name.trim();
-        if (!name) { return; }
-        this.heroService.create(name)
-            .then(hero => {
-                this.heroes.push(hero);
-                this.selectedHero = null;
-            });
+        //name = name.trim();
+        //if (!name) { return; }
+        //this.heroService.create(name)
+        //    .then(hero => {
+        //        this.heroes.push(hero);
+        //        this.selectedHero = null;
+        //    });
     }
 
     delete(hero: Hero): void {
-        this.heroService
-            .deleteHero(hero)
-            .subscribe(() => {
-                this.heroes = this.heroes.filter(h => h !== hero);
-                if (this.selectedHero === hero) { this.selectedHero = null; }
-            });
-    }
-
-    ngOnInit(): void {
-        this.getHeroes();
+        //this.heroService
+        //    .deleteHero(hero)
+        //    .subscribe(() => {
+        //        this.heroes = this.heroes.filter(h => h !== hero);
+        //        if (this.selectedHero === hero) { this.selectedHero = null; }
+        //    });
     }
 
     onSelect(hero: Hero): void {
