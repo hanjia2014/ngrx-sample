@@ -45,8 +45,13 @@ export class HeroDetailComponent implements OnInit {
             });
     }
 
-    save(): void {
-        this.heroService.saveHero(this.hero).subscribe(() => this.goBack());
+    save(hero): void {
+        if (hero.id === 0) {
+            this.store.dispatch(this.heroActions.addHero(hero));
+        } else {
+            this.store.dispatch(this.heroActions.saveHero(hero));
+        }
+        this.goBack();
     }
 
     goBack(): void {
